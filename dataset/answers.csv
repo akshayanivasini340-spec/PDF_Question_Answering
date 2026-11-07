@@ -1,0 +1,862 @@
+What is Artificial Intelligence?,"which maintain a model of the world and use this model to simulate performing various actions. Then, the
+agent can determine hypothesized consequences of the actions and select the best one. This is simulated
+“intelligence” in the sense that it’s exactly what humans do when trying to determine the best possible move
+in any situation - thinking ahead.
+To define the task environment, we use thePEAS (Performance Measure,Environment,Actuators, Sensors)
+
+introduction to the full range of topics studied in artificial intelligence, with emphasis on the “core competences”
+of intelligent systems - problem solving, reasoning, decision making, and learning - and on the logical and
+probabilistic foundations of these activities.
+PDF Version
+These notes are available as a PDF.
+This PDF is automatically generated each time there is a correction made to the website. This means that it
+
+Last updated: October 2024
+3
+1.1 Agents
+1.1 Agents
+In artificial intelligence, the central problem at hand is the creation of a rationalagent, an entity that has
+goals or preferences and tries to perform a series ofactions that yield the best/optimal expected outcome
+given these goals. Rational agents exist in anenvironment, which is specific to the given instantiation of
+the agent. Agents use sensors to interact with the environment and act on it using actuators. As a very
+
+1
+Introduction
+Introduction to Artificial Intelligence
+By Nikhil Sharma, Josh Hug, Jacky Liang, and Henry Zhu.
+Additional Contributions by Regina Wang, Peyrin Kao, Matei Gardea, Danial Toktarbayev, Catherine Chu,
+Samantha Huang, Saathvik Selvan, Pranav Muralikrishnan, and Wesley Zheng.
+Website Established By Wesley Zheng.
+Special Thanks to Ashley Chiu.
+This is the textbook for CS 188: Introduction to Artificial Intelligence at UC Berkeley. It provides an
+
+Last updated: September 2024
+169
+10.1 A Knowledge Based Agent
+10.1 A Knowledge Based Agent
+Imagine a dangerous world filled with lava, the only respite a far away oasis. We would like our agent to be
+able to safely navigate from its current position to the oasis.
+In reinforcement learning, we assume that the only guidance we can give is a reward function which will try
+to nudge the agent in the right direction, like a game of ‘hot or cold’. As the agent explores and collects more",The answer is not available in the PDF.,"Artificial Intelligence (AI) refers to the development of computer systems that can perform tasks that would typically require human intelligence, such as:
+
+1. Learning: AI systems can learn from data and improve their performance over time.
+2. Problem-solving: AI systems can analyze data, identify patterns, and make decisions or take actions.
+3. Perception: AI systems can interpret and understand data from sensors, such as images, speech, and text.
+4. Reasoning: AI systems can draw conclusions and make decisions based on data and rules.
+
+AI can be categorized into two main types:
+
+1. Narrow or Weak AI: This type of AI is designed to perform a specific task, such as facial recognition or language translation.
+2. General or Strong AI: This type of AI is designed to perform any intellectual task that a human can, and is still a subject of ongoing research and development.
+
+AI has many applications in various industries, including:
+
+1. Virtual assistants (e.g., Siri, Alexa)
+2. Image and speech recognition
+3. Natural language processing (e.g., chatbots, language translation)
+4. Self-driving cars and drones
+5. Healthcare and medicine (e.g., medical diagnosis, personalized medicine)
+
+Overall, AI has the potential to revolutionize many aspects of our lives, but it also raises important questions about its impact on society and ethics."
+What is Machine Learning?,"parameters of a specified model given some data.
+There are many machine learning algorithms that deal with many different types of problems and different
+types of data, classified according to the tasks they hope to accomplish and the types of data that they
+work with. Two primary subgroups of machine learning algorithms aresupervised learning algorithms
+and unsupervised learning algorithms . Supervised learning algorithms infer a relationship between
+
+under uncertainty. Until now, we’ve assumed that the probabilistic models we’ve worked with can be taken
+for granted, and the methods by which the underlying probability tables we worked with were generated have
+been abstracted away. We’ll begin to break down this abstraction barrier as we delve into our discussion
+of machine learning, a broad field of computer science that deals with constructing and/or learning the
+parameters of a specified model given some data.
+
+and/or processing them accordingly. In this class, the algorithms we’ll discuss will be limited to supervised
+learning tasks.
+![Image 1](assets/images/train.png)
+<div><b>(a) Training</b></div>
+![Image 2](assets/images/validation.png)
+<div><b>(b) Validation</b></div>
+![Image 3](assets/images/test.png)
+<div><b>(c) Testing</b></div>
+Once you have a dataset that you’re ready to learn with, the machine learning process usually involves
+
+classifier by evaluating it on the training data, comparing that to your training labels, and adjusting the
+parameters of your classifier until you reach your goal.
+Let’s explore one specific implementation of a simple linear classifier: the binary perceptron. The perceptron
+is a binary classifier—though it can be extended to work on more than two classes. The goal of the binary
+perceptron is to find a decision boundary that perfectly separates the training data. In other words, we’re
+
+and unsupervised learning algorithms . Supervised learning algorithms infer a relationship between
+input data and corresponding output data in order to predict outputs for new, previously unseen input data.
+Unsupervised learning algorithms, on the other hand, have input data that doesn’t have any corresponding
+output data and so deal with recognizing inherent structure between or within datapoints and grouping",The answer is not available in the PDF.,"Machine learning is a subset of artificial intelligence (AI) that involves training algorithms to make predictions or decisions based on data without being explicitly programmed. The goal of machine learning is to enable computers to learn from experience and improve their performance over time.
+
+Machine learning algorithms use complex mathematical models to analyze data and identify patterns, relationships, and trends. They can be categorized into several types, including:
+
+1. Supervised learning: The algorithm is trained on labeled data, where the correct output is already known.
+2. Unsupervised learning: The algorithm is trained on unlabeled data, and it must identify patterns or structure on its own.
+3. Reinforcement learning: The algorithm learns by interacting with an environment and receiving feedback in the form of rewards or penalties.
+
+Machine learning has many applications in various fields, including:
+
+1. Image and speech recognition
+2. Natural language processing
+3. Predictive analytics
+4. Recommendation systems
+5. Autonomous vehicles
+
+The benefits of machine learning include:
+
+1. Improved accuracy and efficiency
+2. Increased scalability and flexibility
+3. Reduced costs and resources
+4. Enhanced decision-making capabilities
+
+However, machine learning also has some limitations and challenges, including:
+
+1. Data quality and availability
+2. Algorithmic bias and fairness
+3. Explainability and interpretability
+4. Security and privacy concerns
+
+Overall, machine learning is a powerful tool for extracting insights and value from data, and its applications continue to grow and expand into new areas."
+What is Deep Learning?,"9.9.5 Loss Functions and Multivariate Optimization
+Now that we understand how a feed-forward neural network is constructed, we need a way to train it.
+Returning to our log-likelihood function, we can derive an intuitive algorithm to optimize our weights.
+To maximize our log-likelihood function, we differentiate it to obtain agradient vector:
+∇wℓ(w) =
+[
+∂ℓ(w)
+∂w1 ,..., ∂ℓ(w) ∂wn
+]
+.
+We find the optimal values of the parameters using the gradient ascent method. Given that datasets are
+
+and/or processing them accordingly. In this class, the algorithms we’ll discuss will be limited to supervised
+learning tasks.
+![Image 1](assets/images/train.png)
+<div><b>(a) Training</b></div>
+![Image 2](assets/images/validation.png)
+<div><b>(b) Validation</b></div>
+![Image 3](assets/images/test.png)
+<div><b>(c) Testing</b></div>
+Once you have a dataset that you’re ready to learn with, the machine learning process usually involves
+
+high-dimensional problems, such as image classification, manually selecting useful features is tedious. This
+requires domain-specific expertise and works against the goal of generalization across tasks. A natural desire
+is to learn these feature transformations as well, using a nonlinear function class capable of representing a
+wider variety of functions.
+164
+9.9.2 Multi-layer Perceptron
+Let’s examine how we can derive a more complex function from our original perceptron architecture. Consider
+
+parameters of a specified model given some data.
+There are many machine learning algorithms that deal with many different types of problems and different
+types of data, classified according to the tasks they hope to accomplish and the types of data that they
+work with. Two primary subgroups of machine learning algorithms aresupervised learning algorithms
+and unsupervised learning algorithms . Supervised learning algorithms infer a relationship between
+
+weights. The idea is that the gradient points towards the direction of steepest increase of the objective. We
+maximize a function by moving towards the steepestascent, and we minimize a function by moving towards
+the steepest descent direction.
+Gradient ascent is used if the objective is a function which we try to maximize.
+Algorithm 1: Gradient Ascent 1. Randomly initializew. 2. While w is not converged:
+w← w +α∇wf (w)",The answer is not available in the PDF.,"Deep Learning is a subset of Machine Learning that involves the use of artificial neural networks with multiple layers to analyze and interpret data. It's a type of supervised, unsupervised, or reinforcement learning where the algorithm learns from large amounts of data, typically in the form of images, speech, text, or other types of unstructured data.
+
+The term ""Deep Learning"" was coined because these neural networks are composed of multiple layers, similar to the layers of the human brain. Each layer processes and transforms the input data in some way, allowing the network to learn complex patterns and relationships.
+
+Deep Learning is particularly useful for tasks such as:
+
+* Image recognition and classification
+* Natural Language Processing (NLP) and language translation
+* Speech recognition and synthesis
+* Predictive modeling and forecasting
+* Autonomous vehicles and robotics
+
+The key characteristics of Deep Learning include:
+
+* High dimensionality: The use of multiple layers to process high-dimensional data
+* Non-linearity: The use of non-linear activation functions to introduce complexity to the model
+* Large datasets: The need for large amounts of data to train the model
+* Computational resources: The requirement for powerful computing resources to train and deploy deep learning models
+
+Overall, Deep Learning has revolutionized many fields, including computer vision, NLP, and robotics, and has enabled the development of many advanced applications, such as self-driving cars, virtual assistants, and image recognition systems."
+What is Natural Language Processing?,"and/or processing them accordingly. In this class, the algorithms we’ll discuss will be limited to supervised
+learning tasks.
+![Image 1](assets/images/train.png)
+<div><b>(a) Training</b></div>
+![Image 2](assets/images/validation.png)
+<div><b>(b) Validation</b></div>
+![Image 3](assets/images/test.png)
+<div><b>(c) Testing</b></div>
+Once you have a dataset that you’re ready to learn with, the machine learning process usually involves
+
+The first, proposed by Davis, Putnam, Logemann, and Loveland (which we will call theDPLL algorithm)
+is essentially a depth-first, backtracking search over possible models with three tricks to reduce excessive
+backtracking. This algorithm aims to solve the satisfiability problem, i.e. given a sentence, find a working
+assignment to all the symbols. As we mentioned, the problem of entailment can be reduced to one of
+
+decisions. We introduced the language of logic, its syntax and the standard logical equivalences. Propositional
+logic is a simple language that is based on proposition symbols and logical connectives. First-order logic is a
+representation language more powerful than propositional logic. The syntax of first-order logic builds on
+that of propositional logic, using terms to represent objects and universal and existential quantifiers to make
+assertions.
+
+knowledge base consists solely of literals and implications in propositional logic.
+Inference in first-order logic can be done directly by using rules like Generalized Modus Ponens or by
+propositionalization, which translates the problem into propositional logic and uses a SAT solver to draw
+conclusions.
+
+which features to utilize is known asfeature engineering, and is fundamental to machine learning, but
+for the purposes of this course, you can assume you’ll always be given the extracted features for any given
+dataset. In this note,f(x) refers to a feature function applied to all inputsx before putting them in the
+model.
+Now let’s say you have a dictionary ofn words, and from each email, you extract a feature vectorF∈ Rn,",The answer is not available in the context.,"Natural Language Processing (NLP) is a subfield of artificial intelligence (AI) that deals with the interaction between computers and humans in natural language. It is a branch of AI that focuses on the interaction between computers and humans through natural language, enabling computers to understand, interpret, and generate human language.
+
+NLP involves the processing, analysis, and interpretation of human language, including tasks such as:
+
+1. Sentiment analysis: determining the emotional tone or sentiment behind a piece of text.
+2. Text classification: categorizing text into specific categories or topics.
+3. Entity recognition: identifying and extracting specific entities such as names, locations, and organizations from text.
+4. Machine translation: translating text from one language to another.
+5. Question answering: answering questions based on the content of a text.
+
+NLP has numerous applications in areas such as:
+
+1. Virtual assistants: NLP is used in virtual assistants such as Siri, Alexa, and Google Assistant to understand voice commands and respond accordingly.
+2. Chatbots: NLP is used in chatbots to understand user queries and respond with relevant information.
+3. Sentiment analysis: NLP is used in sentiment analysis to analyze customer feedback and sentiment.
+4. Language translation: NLP is used in machine translation to translate text from one language to another.
+5. Information retrieval: NLP is used in information retrieval systems to retrieve relevant information based on user queries.
+
+The key techniques used in NLP include:
+
+1. Tokenization: breaking down text into individual words or tokens.
+2. Part-of-speech tagging: identifying the part of speech (noun, verb, adjective, etc.) of each word.
+3. Named entity recognition: identifying and extracting specific entities from text.
+4. Sentiment analysis: determining the emotional tone or sentiment behind a piece of text.
+5. Machine learning: using machine learning algorithms to analyze and interpret natural language data.
+
+Overall, NLP is a rapidly evolving field that has numerous applications in areas such as customer service, language translation, and information retrieval."
+What are Large Language Models?,"the ones in whichKB is true, q is true as well. This approach is known asmodel checking. In a sentence
+with a feasible number of symbols, enumeration can be done by drawing out atruth table.
+For a propositional logical system, if there areN symbols, there are2N models to check, and hence the time
+complexity of this algorithm isO(2N ), while in first-order logic, the number of models is infinite. In fact,
+
+between objects, and function symbols to functions of objects. A sentence is true under a model if the relations
+described by the sentence are true under the mapping. While the number of models of a propositional logical
+system is always finite, there may be an infinite number of models of a first-order logical system if the number
+of objects is unconstrained.
+These two dialects of logic allow us to describe and think about the world in different ways. With propositional
+
+than counting and normalization. However, it can be expensive to maintain counts for every(s,a,s ′) tuple
+seen, and so in the next section on model-free learning, we’ll develop methods to bypass maintaining counts
+altogether and avoid the memory overhead required by model-based learning.
+83
+5.3. Model-Free Learning
+5.3 Model-Free Learning
+Onward to model-free learning! There are several model-free learning algorithms, and we’ll cover three
+
+logic, we model our world as a set of symbols that are true or false. Under this assumption, we can represent
+183
+Figure 1: First Order Logic Syntax
+Figure 2: Quantifiers
+184
+a possible world as a vector, with a 1 or 0 for every symbol. This binary view of the world is what is known as
+a factored representation. With first-order logic, our world consists of objects that relate to one another.
+This second object-oriented view of the world is known as astructured representation, is in many ways
+
+The first, proposed by Davis, Putnam, Logemann, and Loveland (which we will call theDPLL algorithm)
+is essentially a depth-first, backtracking search over possible models with three tricks to reduce excessive
+backtracking. This algorithm aims to solve the satisfiability problem, i.e. given a sentence, find a working
+assignment to all the symbols. As we mentioned, the problem of entailment can be reduced to one of",The answer is not available in the context.,"Large Language Models (LLMs) are a type of artificial intelligence (AI) model that is specifically designed to process and understand human language. They are a subset of deep learning models that use a combination of natural language processing (NLP) and machine learning techniques to generate human-like language.
+
+LLMs are typically trained on massive amounts of text data, which allows them to learn patterns and relationships in language. This training data can come from a variety of sources, such as books, articles, and online conversations.
+
+Once trained, LLMs can be used for a wide range of tasks, such as:
+
+1. Language Translation: LLMs can be used to translate text from one language to another.
+2. Text Summarization: LLMs can be used to summarize long pieces of text into shorter, more digestible versions.
+3. Sentiment Analysis: LLMs can be used to analyze the sentiment of text, such as determining whether a piece of text is positive, negative, or neutral.
+4. Question Answering: LLMs can be used to answer questions based on the text they have been trained on.
+5. Language Generation: LLMs can be used to generate new text, such as writing articles or creating chatbot responses.
+
+Some examples of LLMs include:
+
+1. BERT (Bidirectional Encoder Representations from Transformers)
+2. RoBERTa (Robustly Optimized BERT Pretraining Approach)
+3. Longformer (Long-range Formers for Vision and Language)
+
+Overall, Large Language Models have revolutionized the field of NLP and have numerous applications in areas such as customer service, language translation, and content generation."
+What is a neural network?,"give us a generic way to represent a much wider set of functions. In fact, a multi-layer perceptron is a
+universal function approximatorand can representany real function, leaving us only with the problem
+of selecting the best set of weights to parameterize our network. This is formally stated below:
+165
+9.9.2.1 Theorem. (Universal Function Approximators)
+A two-layer neural network with a sufficient number of neurons can approximate any continuous function to
+any desired accuracy.
+
+points. We seek the set of weights that maximizes this quantity. This is equivalent to finding the maximum
+of the log-likelihood expression:
+logℓ(w) = log ∏n i=1P (yi|xi; w) = ∑n i=1 logP (yi|f (xi); w).
+9.9.4 Multi-layer Feedforward Neural Networks
+We now introduce the idea of an artificial neural network. Like the multi-layer perceptron, we choose a
+non-linearity to apply after each perceptron node. These added non-linearities make the network as a whole
+
+high-dimensional problems, such as image classification, manually selecting useful features is tedious. This
+requires domain-specific expertise and works against the goal of generalization across tasks. A natural desire
+is to learn these feature transformations as well, using a nonlinear function class capable of representing a
+wider variety of functions.
+164
+9.9.2 Multi-layer Perceptron
+Let’s examine how we can derive a more complex function from our original perceptron architecture. Consider
+
+the following setup, a two-layer perceptron, which is a perceptron that takes as input the outputs of another
+perceptron.
+Figure 3: Two-layer Perceptron
+In fact, we can generalize this to an N-layer perceptron:
+Figure 4: N-layer Perceptron
+With this additional structure and weights, we can express a much wider set of functions.
+By increasing the complexity of our model, we greatly increase its expressive power. Multi-layer perceptrons
+
+9.9.5 Loss Functions and Multivariate Optimization
+Now that we understand how a feed-forward neural network is constructed, we need a way to train it.
+Returning to our log-likelihood function, we can derive an intuitive algorithm to optimize our weights.
+To maximize our log-likelihood function, we differentiate it to obtain agradient vector:
+∇wℓ(w) =
+[
+∂ℓ(w)
+∂w1 ,..., ∂ℓ(w) ∂wn
+]
+.
+We find the optimal values of the parameters using the gradient ascent method. Given that datasets are",A neural network.,"A neural network is a type of machine learning model inspired by the structure and function of the human brain. It's composed of layers of interconnected nodes or ""neurons,"" which process and transmit information. Neural networks are designed to recognize patterns in data, make predictions, and learn from experience.
+
+Neural networks are trained on large datasets, and the connections between the nodes are adjusted to minimize the error between predicted and actual outputs. This process is called backpropagation. As the network is trained, the connections between the nodes are strengthened or weakened based on the data, allowing the network to learn and improve its performance.
+
+Neural networks have many applications in fields such as image and speech recognition, natural language processing, and autonomous vehicles. They're also used in areas like medical diagnosis, financial forecasting, and recommender systems.
+
+There are different types of neural networks, including:
+
+1. Feedforward neural networks: The simplest type, where data flows only in one direction.
+2. Recurrent neural networks (RNNs): Designed to handle sequential data, like time series or speech.
+3. Convolutional neural networks (CNNs): Optimized for image and video processing.
+4. Autoencoders: Used for dimensionality reduction and generative models.
+
+Neural networks have revolutionized many areas of computer science and have become a fundamental tool for machine learning and artificial intelligence."
+What is supervised learning?,"and unsupervised learning algorithms . Supervised learning algorithms infer a relationship between
+input data and corresponding output data in order to predict outputs for new, previously unseen input data.
+Unsupervised learning algorithms, on the other hand, have input data that doesn’t have any corresponding
+output data and so deal with recognizing inherent structure between or within datapoints and grouping
+
+parameters of a specified model given some data.
+There are many machine learning algorithms that deal with many different types of problems and different
+types of data, classified according to the tasks they hope to accomplish and the types of data that they
+work with. Two primary subgroups of machine learning algorithms aresupervised learning algorithms
+and unsupervised learning algorithms . Supervised learning algorithms infer a relationship between
+
+and/or processing them accordingly. In this class, the algorithms we’ll discuss will be limited to supervised
+learning tasks.
+![Image 1](assets/images/train.png)
+<div><b>(a) Training</b></div>
+![Image 2](assets/images/validation.png)
+<div><b>(b) Validation</b></div>
+![Image 3](assets/images/test.png)
+<div><b>(c) Testing</b></div>
+Once you have a dataset that you’re ready to learn with, the machine learning process usually involves
+
+classifier by evaluating it on the training data, comparing that to your training labels, and adjusting the
+parameters of your classifier until you reach your goal.
+Let’s explore one specific implementation of a simple linear classifier: the binary perceptron. The perceptron
+is a binary classifier—though it can be extended to work on more than two classes. The goal of the binary
+perceptron is to find a decision boundary that perfectly separates the training data. In other words, we’re
+
+under uncertainty. Until now, we’ve assumed that the probabilistic models we’ve worked with can be taken
+for granted, and the methods by which the underlying probability tables we worked with were generated have
+been abstracted away. We’ll begin to break down this abstraction barrier as we delve into our discussion
+of machine learning, a broad field of computer science that deals with constructing and/or learning the
+parameters of a specified model given some data.","Supervised learning algorithms infer a relationship between input data and corresponding output data in order to predict outputs for new, previously unseen input data.","Supervised learning is a type of machine learning where the algorithm is trained on labeled data. In other words, the data is already classified or tagged with the correct output, and the algorithm learns to map inputs to outputs based on this labeled data.
+
+The term ""supervised"" refers to the fact that the algorithm is supervised by human labels or annotations, which provide the necessary guidance for the algorithm to learn from. This type of learning is commonly used in image classification, speech recognition, natural language processing, and other applications where the data is easily labeled.
+
+In supervised learning, the algorithm is typically trained using a dataset that consists of input-output pairs, where each input is associated with a corresponding output label. The algorithm learns to predict the output label for new, unseen inputs by analyzing the patterns and relationships learned from the labeled data.
+
+Supervised learning is often contrasted with unsupervised learning, where the algorithm learns from unlabeled data and must discover the underlying structure or patterns on its own."
+What is unsupervised learning?,"and unsupervised learning algorithms . Supervised learning algorithms infer a relationship between
+input data and corresponding output data in order to predict outputs for new, previously unseen input data.
+Unsupervised learning algorithms, on the other hand, have input data that doesn’t have any corresponding
+output data and so deal with recognizing inherent structure between or within datapoints and grouping
+
+parameters of a specified model given some data.
+There are many machine learning algorithms that deal with many different types of problems and different
+types of data, classified according to the tasks they hope to accomplish and the types of data that they
+work with. Two primary subgroups of machine learning algorithms aresupervised learning algorithms
+and unsupervised learning algorithms . Supervised learning algorithms infer a relationship between
+
+and/or processing them accordingly. In this class, the algorithms we’ll discuss will be limited to supervised
+learning tasks.
+![Image 1](assets/images/train.png)
+<div><b>(a) Training</b></div>
+![Image 2](assets/images/validation.png)
+<div><b>(b) Validation</b></div>
+![Image 3](assets/images/test.png)
+<div><b>(c) Testing</b></div>
+Once you have a dataset that you’re ready to learn with, the machine learning process usually involves
+
+idea that Figure 2 or even Figure 3 are unfavorable as well.Approximate Q-learningtries to account
+for this by learning about a few general situations and extrapolating to many similar situations. The key
+to generalizing learning experiences is thefeature-based representationof states, which represents each
+state as a vector known as afeature vector. For example, a feature vector for Pacman may encode:
+• the distance to the closest ghost.
+• the distance to the closest food pellet.
+
+through many episodes during exploration in order to collect sufficient data needed for learning.
+There are two types of reinforcement learning,model-based learningand model-free learning. Model-
+based learning attempts to estimate the transition and reward functions with the samples attained during
+exploration before using these estimates to solve the MDP normally with value or policy iteration. Model-free",Unsupervised learning algorithms have input data that doesn’t have any corresponding output data and so deal with recognizing inherent structure between or within datapoints and grouping.,"Unsupervised learning is a type of machine learning where the algorithm is trained on data without any pre-defined output or target. The goal of unsupervised learning is to identify patterns, relationships, or structure in the data itself, without any human intervention or guidance.
+
+In supervised learning, the algorithm is trained on labeled data, where each example is associated with a specific output or target. In contrast, unsupervised learning involves finding hidden patterns or relationships in the data, such as clustering, dimensionality reduction, or anomaly detection.
+
+Some common techniques used in unsupervised learning include:
+
+* Clustering: grouping similar data points into clusters
+* Dimensionality reduction: reducing the number of features in the data
+* Anomaly detection: identifying data points that do not fit the expected pattern
+* Density estimation: estimating the probability distribution of the data
+
+Unsupervised learning is useful when the data is not labeled or when the labels are not available, but the algorithm can still identify patterns and relationships in the data."
+What is reinforcement learning?,"through many episodes during exploration in order to collect sufficient data needed for learning.
+There are two types of reinforcement learning,model-based learningand model-free learning. Model-
+based learning attempts to estimate the transition and reward functions with the samples attained during
+exploration before using these estimates to solve the MDP normally with value or policy iteration. Model-free
+
+• Model-based learning: Runs computations to estimate the values of the transition functionT and
+the reward functionR and uses MDP-solving methods like value or policy iteration with these estimates.
+• Model-free learning: Avoids estimation ofT andR, instead using other methods to directly estimate
+the values or Q-values of states.
+– Direct evaluation: Follows a policyπ and simply counts total rewards reaped from each state
+
+of them: direct evaluation, temporal difference learning, and Q-learning. Direct evaluation and temporal
+difference learning fall under a class of algorithms known aspassive reinforcement learning. In passive
+reinforcement learning, an agent is given a policy to follow and learns the value of states under that policy as
+it experiences episodes, which is exactly what is done by policy evaluation for MDPs whenT andR are known.
+
+reinforcement learning and using methods like value iteration and policy iteration is the lack of knowledge of
+the transition functionT and the reward functionR for the underlying MDP. As a result, agents mustlearn
+the optimal policy through online trial-by-error rather than pure offline computation. There are many ways
+to do this:
+• Model-based learning: Runs computations to estimate the values of the transition functionT and
+
+learning, on the other hand, attempts to estimate the values or Q-values of states directly, without ever using
+79
+any memory to construct a model of the rewards and transitions in the MDP.
+80
+5.2 Model-Based Learning
+5.2 Model-Based Learning
+In model-based learning, an agent generates an approximation of the transition function,ˆT (s,a,s ′), by
+keeping counts of the number of times it arrives in each states′ after entering each Q-state(s,a ). The agent","The answer is not explicitly stated in the provided context, but it can be inferred. The context describes different types of reinforcement learning, such as model-based learning and model-free learning, and how they work. It also mentions other algorithms like value iteration, policy iteration, direct evaluation, temporal difference learning, and Q-learning, which are related to reinforcement learning. However, the context does not explicitly define what reinforcement learning is.
+
+Based on general knowledge, reinforcement learning can be defined as a type of machine learning where an agent learns to take actions in an environment to maximize a reward signal. The context suggests that reinforcement learning involves trial-and-error learning and online computation, which is consistent with this definition.","Reinforcement learning is a type of machine learning algorithm that involves training an agent to take actions in an environment to maximize a reward or minimize a penalty. The agent learns through trial and error, receiving feedback in the form of rewards or penalties for its actions. The goal is to find the optimal policy that maximizes the cumulative reward over time.
+
+In reinforcement learning, the agent interacts with an environment, taking actions and observing the consequences of those actions. The agent's policy is updated based on the rewards or penalties it receives, allowing it to learn and adapt to the environment. This process is repeated over many iterations, with the agent refining its policy and improving its performance.
+
+Reinforcement learning is often used in applications such as robotics, game playing, and autonomous vehicles, where the agent needs to learn from experience and adapt to changing environments. It is a powerful tool for solving complex decision-making problems, and has been successfully applied in a wide range of fields."
+What is an AI chatbot?,"The source for the lecture notes and a log of all changes is available on Github.
+License
+This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.
+2
+1. Search
+1. Search
+Author: Nikhil Sharma
+Edited by: Matei Gardea, Catherine Chu, and Wesley Zheng
+Credit: Some sections adapted from the textbook Artificial Intelligence: A Modern Approach.
+Last updated: October 2024
+3
+1.1 Agents
+1.1 Agents
+
+Last updated: October 2024
+3
+1.1 Agents
+1.1 Agents
+In artificial intelligence, the central problem at hand is the creation of a rationalagent, an entity that has
+goals or preferences and tries to perform a series ofactions that yield the best/optimal expected outcome
+given these goals. Rational agents exist in anenvironment, which is specific to the given instantiation of
+the agent. Agents use sensors to interact with the environment and act on it using actuators. As a very
+
+type of agent is known as aknowledge-based agent. Such an agent maintains aknowledge base, which
+is a collection of logicalsentences that encode what we have told the agent and what it has observed. The
+agent is also able to performlogical inference to draw new conclusions.
+170
+10.2 The Language of Logic
+10.2 The Language of Logic
+Just as with any other language, logic sentences are written in a specialsyntax. Every logical sentence is
+
+which maintain a model of the world and use this model to simulate performing various actions. Then, the
+agent can determine hypothesized consequences of the actions and select the best one. This is simulated
+“intelligence” in the sense that it’s exactly what humans do when trying to determine the best possible move
+in any situation - thinking ahead.
+To define the task environment, we use thePEAS (Performance Measure,Environment,Actuators, Sensors)
+
+introduction to the full range of topics studied in artificial intelligence, with emphasis on the “core competences”
+of intelligent systems - problem solving, reasoning, decision making, and learning - and on the logical and
+probabilistic foundations of these activities.
+PDF Version
+These notes are available as a PDF.
+This PDF is automatically generated each time there is a correction made to the website. This means that it",The answer is not available in the context.,"An AI chatbot is a computer program that uses artificial intelligence (AI) to simulate conversation with human users, either through text or voice interactions. It's designed to understand and respond to natural language inputs, allowing users to ask questions, receive information, or complete tasks.
+
+Chatbots are typically built using machine learning algorithms and natural language processing (NLP) techniques to analyze and understand user input. They can be integrated into various applications, such as customer service platforms, websites, mobile apps, and voice assistants like Siri, Alexa, or Google Assistant.
+
+Some common characteristics of AI chatbots include:
+
+1. Natural language understanding: They can comprehend human language and respond accordingly.
+2. Contextual understanding: They can recognize the context of the conversation and respond accordingly.
+3. Personalization: They can tailor their responses based on user preferences and behavior.
+4. Continuous learning: They can learn from user interactions and improve their responses over time.
+
+Chatbots can be used for various purposes, such as:
+
+1. Customer service: Providing support and answering frequently asked questions.
+2. Informational purposes: Sharing news, articles, or other relevant information.
+3. Entertainment: Engaging in conversation or providing interactive experiences.
+4. Business applications: Automating tasks, such as booking appointments or making reservations.
+
+Overall, AI chatbots aim to provide a seamless and engaging user experience, making interactions with machines feel more human-like and natural."
+What is the attention mechanism?,"observations about the world, it gradually learns to associate some actions with positive future reward and
+others with undesirable, scalding death. This way, it might learn to recognize certain cues from the world
+and act accordingly. For example, if it feels the air getting hot it should turn the other way.
+However, we might consider an alternative strategy. Instead, let’s tell the agent some facts about the world
+
+during which it performs actions and receivesfeedback in the form of the successor states it arrives in and
+the corresponding rewards it reaps. The agent uses this feedback to estimate an optimal policy through a
+process known asreinforcement learningbefore using this estimated policy forexploitation or reward
+maximization.
+Figure 1: Feedback Loop
+Let’s start with some basic terminology. At each time step during online planning, an agent starts in a
+
+its actuators. The agent function describes what the agent does in all circumstances. Rationality of the agent
+means that the agent seeks to maximize their expected utility. Finally, we define our task environments using
+PEAS descriptions.
+Regarding the search problems, they can be solved using a variety of search techniques, including but not
+limited to the five we study in CS 188:
+• Breadth-first Search
+• Depth-first Search
+• Uniform Cost Search
+• Greedy Search
+• A Search*
+
+state s, then takes an actiona and ends up in a successor states′, attaining some rewardr. Each (s, a, s′, r)
+tuple is known as asample. Often, an agent continues to take actions and collect samples in succession
+until arriving at a terminal state. Such a collection of samples is known as anepisode. Agents typically go
+through many episodes during exploration in order to collect sufficient data needed for learning.
+
+expands in every direction from the start state while searching for a goal. If we have some notion of the
+direction in which we should focus our search, we can significantly improve performance and “hone in” on a
+goal much more quickly. This is exactly the focus ofinformed search.
+1.4.1 Heuristics
+Heuristics are the driving force that allow estimation of distance to goal states - they’re functions that take","There is no mention of an ""attention mechanism"" in the provided context.","The attention mechanism is a computational technique used in deep learning to focus on specific parts of the input data that are relevant for a particular task. It is commonly used in machine translation, question answering, and natural language processing tasks.
+
+In traditional machine learning models, all input data is processed equally, regardless of its relevance to the task. However, the attention mechanism allows the model to selectively focus on certain parts of the input data, weighing their importance based on their relevance to the task.
+
+There are several types of attention mechanisms, including:
+
+1. Neural Attention: This type of attention is inspired by the neural mechanisms that allow humans to focus on specific parts of the input data.
+2. Hard Attention: This type of attention selects the most relevant input elements, discarding the rest.
+3. Soft Attention: This type of attention assigns a weight to each input element, allowing the model to selectively focus on certain parts of the input data.
+
+The attention mechanism is particularly useful in natural language processing tasks, such as machine translation, where the model needs to understand the context and nuances of the input text.
+
+The attention mechanism has several benefits, including:
+
+1. Improved accuracy: By selectively focusing on relevant parts of the input data, the model can improve its accuracy on tasks such as machine translation and question answering.
+2. Reduced overfitting: The attention mechanism can help reduce overfitting by selectively ignoring irrelevant input data.
+3. Efficient computation: The attention mechanism can reduce the computational requirements of the model, making it more efficient.
+
+Overall, the attention mechanism is an important technique in deep learning, allowing models to selectively focus on relevant parts of the input data and improve their accuracy and efficiency."
+What is a Transformer model?,"logic, we model our world as a set of symbols that are true or false. Under this assumption, we can represent
+183
+Figure 1: First Order Logic Syntax
+Figure 2: Quantifiers
+184
+a possible world as a vector, with a 1 or 0 for every symbol. This binary view of the world is what is known as
+a factored representation. With first-order logic, our world consists of objects that relate to one another.
+This second object-oriented view of the world is known as astructured representation, is in many ways
+
+its own probability. For example, we might build a weather model, where the state consists of the season,
+temperature, and weather. Our model might say thatP (winter, 35ř, cloudy) = 0 .023. This number represents
+the probability of the specific outcome that it is winter, 35°, and cloudy.
+More precisely, our model is ajoint distribution, i.e., a table of probabilities that captures the likelihood of
+
+ordering (alphabetical order) and a fixed value ordering (true before false).
+On each recursive call to the DPLL function, we keep track of three things: -model is a list of the symbols
+we’ve assigned so far, and their values. -symbols is a list of unassigned symbols that still need assignments.
+175
+- clauses is a list of clauses (disjunctions) in CNF that still need to be considered on this call or future
+recursive calls to DPLL.
+
+between objects, and function symbols to functions of objects. A sentence is true under a model if the relations
+described by the sentence are true under the mapping. While the number of models of a propositional logical
+system is always finite, there may be an infinite number of models of a first-order logical system if the number
+of objects is unconstrained.
+These two dialects of logic allow us to describe and think about the world in different ways. With propositional
+
+96
+Figure 1: Basic Bayes Nets Example
+We will see how this relation holds in the next section.
+As a reality check, it’s important to internalize that Bayes Nets are only a type of model. Models attempt
+to capture the way the world works, but because they are always a simplification they are always wrong.
+However, with good modeling choices they can still be good enough approximations that they are useful for
+solving real problems in the real world.",The answer is not available in the context.,"A Transformer model is a type of neural network architecture that is particularly well-suited for processing sequential data, such as text or speech. It was introduced in a 2017 paper by Vaswani et al. and has since become one of the most popular architectures in natural language processing (NLP) and other fields.
+
+The key innovation of the Transformer model is its use of self-attention mechanisms to process input data. Unlike traditional recurrent neural networks (RNNs), which use recurrent connections to process input data sequentially, the Transformer model uses self-attention to weigh the importance of different input elements relative to each other.
+
+This allows the model to focus on the relationships between different elements in the input data, rather than just processing them sequentially. The Transformer model consists of an encoder and a decoder, with the encoder taking in a sequence of tokens (such as words or characters) and generating a sequence of output tokens.
+
+The Transformer model has been shown to be particularly effective in a wide range of NLP tasks, including machine translation, text classification, and question answering. Its ability to handle long-range dependencies and parallel processing has made it a popular choice for many applications, and it has led to significant advances in NLP and related fields."
+What are the applications of AI?,"which maintain a model of the world and use this model to simulate performing various actions. Then, the
+agent can determine hypothesized consequences of the actions and select the best one. This is simulated
+“intelligence” in the sense that it’s exactly what humans do when trying to determine the best possible move
+in any situation - thinking ahead.
+To define the task environment, we use thePEAS (Performance Measure,Environment,Actuators, Sensors)
+
+Last updated: October 2024
+3
+1.1 Agents
+1.1 Agents
+In artificial intelligence, the central problem at hand is the creation of a rationalagent, an entity that has
+goals or preferences and tries to perform a series ofactions that yield the best/optimal expected outcome
+given these goals. Rational agents exist in anenvironment, which is specific to the given instantiation of
+the agent. Agents use sensors to interact with the environment and act on it using actuators. As a very
+
+introduction to the full range of topics studied in artificial intelligence, with emphasis on the “core competences”
+of intelligent systems - problem solving, reasoning, decision making, and learning - and on the logical and
+probabilistic foundations of these activities.
+PDF Version
+These notes are available as a PDF.
+This PDF is automatically generated each time there is a correction made to the website. This means that it
+
+search algorithms we’ve already learned to formulate a plan as we typically don’t deterministically know how
+our adversaries will plan against us and respond to our actions. Instead, we’ll need to run a new class of
+algorithms that yield solutions toadversarial search problems , more commonly known asgames.
+There are many different types of games. Games can have actions with either deterministic orstochastic
+
+its actuators. The agent function describes what the agent does in all circumstances. Rationality of the agent
+means that the agent seeks to maximize their expected utility. Finally, we define our task environments using
+PEAS descriptions.
+Regarding the search problems, they can be solved using a variety of search techniques, including but not
+limited to the five we study in CS 188:
+• Breadth-first Search
+• Depth-first Search
+• Uniform Cost Search
+• Greedy Search
+• A Search*",The answer is not available in the context.,"Artificial Intelligence (AI) has numerous applications across various industries. Some of the most significant applications of AI include:
+
+1. **Virtual Assistants**: AI-powered virtual assistants, such as Siri, Alexa, and Google Assistant, can perform tasks, answer questions, and provide information to users.
+
+2. **Image and Speech Recognition**: AI can recognize and interpret images, speech, and text, which is used in applications such as self-driving cars, facial recognition, and voice-controlled devices.
+
+3. **Natural Language Processing (NLP)**: AI-powered NLP can understand, analyze, and generate human language, which is used in applications such as chatbots, language translation, and text summarization.
+
+4. **Predictive Maintenance**: AI can analyze data from sensors and equipment to predict when maintenance is required, reducing downtime and increasing efficiency.
+
+5. **Healthcare**: AI is used in medical diagnosis, personalized medicine, and patient care. For example, AI can help analyze medical images, identify diseases, and develop personalized treatment plans.
+
+6. **Autonomous Vehicles**: AI is used in self-driving cars to navigate roads, detect obstacles, and make decisions in real-time.
+
+7. **Customer Service**: AI-powered chatbots can provide 24/7 customer support, answer frequently asked questions, and route complex issues to human representatives.
+
+8. **Cybersecurity**: AI can detect and respond to cyber threats in real-time, helping to protect against data breaches and malware.
+
+9. **Financial Analysis**: AI can analyze financial data, identify trends, and make predictions, helping investors and financial institutions make better decisions.
+
+10. **Education**: AI can help personalize learning experiences, grade assignments, and provide feedback to students.
+
+11. **Marketing and Advertising**: AI can help analyze customer data, personalize marketing campaigns, and optimize advertising spend.
+
+12. **Supply Chain Management**: AI can optimize supply chain operations, predict demand, and reduce waste.
+
+13. **Manufacturing**: AI can optimize production processes, predict maintenance needs, and improve product quality.
+
+14. **Waste Management**: AI can help optimize waste collection routes, predict waste generation, and reduce waste disposal costs.
+
+15. **Environmental Monitoring**: AI can help monitor environmental pollutants, predict climate change, and optimize resource usage.
+
+These are just a few examples of the many applications of AI. As AI technology continues to evolve, we can expect to see even more innovative uses of AI in various industries."
+What are the advantages of Artificial Intelligence?,"which maintain a model of the world and use this model to simulate performing various actions. Then, the
+agent can determine hypothesized consequences of the actions and select the best one. This is simulated
+“intelligence” in the sense that it’s exactly what humans do when trying to determine the best possible move
+in any situation - thinking ahead.
+To define the task environment, we use thePEAS (Performance Measure,Environment,Actuators, Sensors)
+
+introduction to the full range of topics studied in artificial intelligence, with emphasis on the “core competences”
+of intelligent systems - problem solving, reasoning, decision making, and learning - and on the logical and
+probabilistic foundations of these activities.
+PDF Version
+These notes are available as a PDF.
+This PDF is automatically generated each time there is a correction made to the website. This means that it
+
+Last updated: October 2024
+3
+1.1 Agents
+1.1 Agents
+In artificial intelligence, the central problem at hand is the creation of a rationalagent, an entity that has
+goals or preferences and tries to perform a series ofactions that yield the best/optimal expected outcome
+given these goals. Rational agents exist in anenvironment, which is specific to the given instantiation of
+the agent. Agents use sensors to interact with the environment and act on it using actuators. As a very
+
+its actuators. The agent function describes what the agent does in all circumstances. Rationality of the agent
+means that the agent seeks to maximize their expected utility. Finally, we define our task environments using
+PEAS descriptions.
+Regarding the search problems, they can be solved using a variety of search techniques, including but not
+limited to the five we study in CS 188:
+• Breadth-first Search
+• Depth-first Search
+• Uniform Cost Search
+• Greedy Search
+• A Search*
+
+returns a strategy, or policy, which simply recommends the best possible move given some configuration of
+our agent(s) and their adversaries. We’ll soon see that such algorithms have the beautiful property of giving
+rise to behavior through computation — the computation we run is relatively simple in concept and widely
+generalizable, yet innately generates cooperation between agents on the same team as well as “outthinking”
+of adversarial agents.",The answer is not available in the PDF.,"The advantages of Artificial Intelligence (AI) are numerous and diverse. Some of the most significant benefits include:
+
+1. Increased Efficiency: AI can automate repetitive and mundane tasks, freeing up human time and resources for more complex and creative work.
+
+2. Improved Accuracy: AI systems can process large amounts of data quickly and accurately, reducing the likelihood of human error.
+
+3. Enhanced Customer Experience: AI-powered chatbots and virtual assistants can provide 24/7 customer support, helping to improve customer satisfaction and loyalty.
+
+4. Data Analysis: AI can analyze vast amounts of data to identify patterns and trends that may not be apparent to humans, providing valuable insights for businesses and organizations.
+
+5. Predictive Maintenance: AI-powered systems can predict when equipment is likely to fail, allowing for proactive maintenance and reducing downtime.
+
+6. Improved Safety: AI can be used to detect anomalies in real-time, helping to prevent accidents and improve overall safety.
+
+7. Accessibility: AI-powered tools can help people with disabilities, such as language translation and image recognition, to access information and services that may not have been available before.
+
+8. Increased Productivity: AI can automate tasks, allowing humans to focus on more creative and strategic work.
+
+9. Improved Healthcare: AI can be used to analyze medical data, identify patterns, and provide personalized treatment recommendations.
+
+10. Sustainable Development: AI can help optimize energy consumption, reduce waste, and improve resource allocation, contributing to a more sustainable future.
+
+Overall, the advantages of AI are vast and varied, and continue to grow as the technology advances and becomes more integrated into our daily lives."
+What are the challenges of Artificial Intelligence?,"introduction to the full range of topics studied in artificial intelligence, with emphasis on the “core competences”
+of intelligent systems - problem solving, reasoning, decision making, and learning - and on the logical and
+probabilistic foundations of these activities.
+PDF Version
+These notes are available as a PDF.
+This PDF is automatically generated each time there is a correction made to the website. This means that it
+
+Last updated: October 2024
+3
+1.1 Agents
+1.1 Agents
+In artificial intelligence, the central problem at hand is the creation of a rationalagent, an entity that has
+goals or preferences and tries to perform a series ofactions that yield the best/optimal expected outcome
+given these goals. Rational agents exist in anenvironment, which is specific to the given instantiation of
+the agent. Agents use sensors to interact with the environment and act on it using actuators. As a very
+
+search algorithms we’ve already learned to formulate a plan as we typically don’t deterministically know how
+our adversaries will plan against us and respond to our actions. Instead, we’ll need to run a new class of
+algorithms that yield solutions toadversarial search problems , more commonly known asgames.
+There are many different types of games. Games can have actions with either deterministic orstochastic
+
+its actuators. The agent function describes what the agent does in all circumstances. Rationality of the agent
+means that the agent seeks to maximize their expected utility. Finally, we define our task environments using
+PEAS descriptions.
+Regarding the search problems, they can be solved using a variety of search techniques, including but not
+limited to the five we study in CS 188:
+• Breadth-first Search
+• Depth-first Search
+• Uniform Cost Search
+• Greedy Search
+• A Search*
+
+which maintain a model of the world and use this model to simulate performing various actions. Then, the
+agent can determine hypothesized consequences of the actions and select the best one. This is simulated
+“intelligence” in the sense that it’s exactly what humans do when trying to determine the best possible move
+in any situation - thinking ahead.
+To define the task environment, we use thePEAS (Performance Measure,Environment,Actuators, Sensors)",The answer is not available in the PDF.,"The challenges of Artificial Intelligence (AI) are numerous and varied. Here are some of the most significant ones:
+
+1. **Lack of Data**: One of the biggest challenges of AI is the availability and quality of data. AI systems require large amounts of high-quality data to learn and improve, but such data is often scarce, noisy, or biased.
+
+2. **Bias and Fairness**: AI systems can inherit biases from the data they are trained on, leading to discriminatory outcomes. Ensuring fairness and transparency in AI decision-making is a significant challenge.
+
+3. **Explainability and Interpretability**: AI models can be complex and difficult to understand, making it challenging to explain their decisions and predict their behavior.
+
+4. **Cybersecurity**: AI systems can be vulnerable to cyber attacks, which can compromise their performance, integrity, and safety.
+
+5. **Job Displacement**: The increasing use of AI can lead to job displacement, as machines and algorithms take over tasks that were previously performed by humans.
+
+6. **Ethics and Governance**: AI raises a range of ethical concerns, such as accountability, responsibility, and accountability. Developing frameworks for governance and ethics in AI is a significant challenge.
+
+7. **Scalability and Performance**: As AI systems become more complex, they can be difficult to scale and optimize, leading to decreased performance and increased costs.
+
+8. **Energy Consumption**: Training and deploying AI models requires significant amounts of energy, which can lead to environmental concerns and increased carbon footprint.
+
+9. **Dependence on Data**: AI systems are only as good as the data they are trained on, and dependence on a limited dataset can lead to poor performance and limited generalizability.
+
+10. **Transparency and Trust**: Building trust in AI systems is essential, but transparency and explainability can be challenging, particularly in complex systems.
+
+11. **Human-AI Collaboration**: As AI becomes more pervasive, it's essential to develop effective collaboration models between humans and AI systems to maximize their benefits.
+
+12. **Regulation and Standards**: Establishing regulations and standards for AI development and deployment is a significant challenge, particularly as AI becomes more ubiquitous.
+
+These challenges highlight the need for ongoing research, development, and collaboration to overcome the limitations and risks associated with AI."
+What is Artificial Intelligence?,"which maintain a model of the world and use this model to simulate performing various actions. Then, the
+agent can determine hypothesized consequences of the actions and select the best one. This is simulated
+“intelligence” in the sense that it’s exactly what humans do when trying to determine the best possible move
+in any situation - thinking ahead.
+To define the task environment, we use thePEAS (Performance Measure,Environment,Actuators, Sensors)
+
+introduction to the full range of topics studied in artificial intelligence, with emphasis on the “core competences”
+of intelligent systems - problem solving, reasoning, decision making, and learning - and on the logical and
+probabilistic foundations of these activities.
+PDF Version
+These notes are available as a PDF.
+This PDF is automatically generated each time there is a correction made to the website. This means that it
+
+Last updated: October 2024
+3
+1.1 Agents
+1.1 Agents
+In artificial intelligence, the central problem at hand is the creation of a rationalagent, an entity that has
+goals or preferences and tries to perform a series ofactions that yield the best/optimal expected outcome
+given these goals. Rational agents exist in anenvironment, which is specific to the given instantiation of
+the agent. Agents use sensors to interact with the environment and act on it using actuators. As a very
+
+1
+Introduction
+Introduction to Artificial Intelligence
+By Nikhil Sharma, Josh Hug, Jacky Liang, and Henry Zhu.
+Additional Contributions by Regina Wang, Peyrin Kao, Matei Gardea, Danial Toktarbayev, Catherine Chu,
+Samantha Huang, Saathvik Selvan, Pranav Muralikrishnan, and Wesley Zheng.
+Website Established By Wesley Zheng.
+Special Thanks to Ashley Chiu.
+This is the textbook for CS 188: Introduction to Artificial Intelligence at UC Berkeley. It provides an
+
+Last updated: September 2024
+169
+10.1 A Knowledge Based Agent
+10.1 A Knowledge Based Agent
+Imagine a dangerous world filled with lava, the only respite a far away oasis. We would like our agent to be
+able to safely navigate from its current position to the oasis.
+In reinforcement learning, we assume that the only guidance we can give is a reward function which will try
+to nudge the agent in the right direction, like a game of ‘hot or cold’. As the agent explores and collects more",The answer is not available in the PDF.,"Artificial Intelligence (AI) refers to the development of computer systems that can perform tasks that typically require human intelligence, such as learning, problem-solving, decision-making, and perception. The goal of AI is to create machines that can think, learn, and behave like humans, and can be applied in various fields such as robotics, computer vision, natural language processing, and expert systems.
+
+AI involves the use of algorithms and data to enable machines to perform tasks that would normally require human intelligence, such as:
+
+1. Machine learning: the ability of machines to learn from data and improve their performance over time.
+2. Natural language processing: the ability of machines to understand and generate human language.
+3. Computer vision: the ability of machines to interpret and understand visual data from images and videos.
+4. Expert systems: the ability of machines to mimic human expertise in a particular domain.
+
+AI has many applications, including:
+
+1. Virtual assistants: such as Siri, Alexa, and Google Assistant, which can perform tasks such as answering questions, playing music, and controlling smart home devices.
+2. Image and speech recognition: which can be used in applications such as self-driving cars, facial recognition, and voice-controlled interfaces.
+3. Predictive maintenance: which can be used in applications such as predicting equipment failures and scheduling maintenance.
+4. Healthcare: which can be used in applications such as medical diagnosis, disease prediction, and personalized medicine.
+
+Overall, AI has the potential to transform many industries and aspects of our lives, and is an active area of research and development."
